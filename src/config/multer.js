@@ -22,7 +22,7 @@ const storageTypes ={
     s3: molderS3({
         s3: new aws.S3(),
         bucket: 'uploadnodejs',
-        contentType: molderS3.AUTO_CREATE_CONTENT_TYPE,
+        contentType: molderS3.AUTO_CONTENT_TYPE,
         acl: 'public-read',
         key: (req, file, cb) =>{
             crypto.randomBytes(16, (err, hash)=>{
@@ -38,7 +38,7 @@ const storageTypes ={
 
 module.exports = {
     dest: path.resolve(__dirname, '..', '..', 'tmp', 'uplaods'),
-    storage: storageTypes['s3'],
+    storage: storageTypes[process.env.STORAGE_TYPE],
     limits: {
         fileSize: 2 * 1024 * 1024,
     },

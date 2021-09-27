@@ -4,7 +4,8 @@ const multerConfig = require('./config/multer')
 
 const Post = require('./models/Post')
 
-router.post('/', multer(multerConfig).single('file'), async (req, res) => {
+
+router.post('/post', multer(multerConfig).single('file'), async (req, res) => {
     const { originalname: name, size, key, location: url } = req.file
     try {
         const post = await Post.create({
@@ -18,7 +19,18 @@ router.post('/', multer(multerConfig).single('file'), async (req, res) => {
         console.log('ERROR', e)
     }
 })
-router.get('/', (req, res) => {
-    res.send('Hello world')
+
+router.get('/post', async (req, res) => {
+    const posts = await Post.find();
+    res.json(posts);
+})
+
+router.delete('/post/:id', async (req, res) => {
+    const post = await Post.findById(req.params.id);
+
+    await post.remove();
+
+    res.send();
+
 })
 module.exports = router

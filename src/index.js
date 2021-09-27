@@ -4,12 +4,13 @@ const express = require('express');
 const morgan = require('morgan');
 const routes = require('./routes');
 const mongoose = require('mongoose')
+const path = require('path');
 
 const app = express();
 
 
 mongoose.connect(
-    `mongodb+srv://docker:docker@cluster0.z0egm.mongodb.net/test`,
+    process.env.MONGO_URL,
     {
         useNewUrlParser: true,
     }
@@ -21,8 +22,11 @@ mongoose.connection.once('open', () => console.log('database connected'))
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(morgan('dev'));
-
-app.use('/v1', routes)
+app.use(
+    "/files",
+    express.static(path.resolve(__dirname, '..', '..', 'tmp', 'uplaods'))
+  );
+app.use(routes)
 
 app.listen(3333, () => {
     console.log('Server in ruuning on port 3333');
