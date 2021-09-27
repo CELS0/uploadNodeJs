@@ -9,10 +9,13 @@
     "dev": "nodemon src/index.js"
   },
   "dependencies": {
+    "aws-sdk": "^2.995.0",
     "express": "^4.17.1",
     "mongoose": "^6.0.7",
     "morgan": "^1.10.0",
-    "multer": "^1.4.3"
+    "multer": "^1.4.3",
+    "multer-s3": "^2.9.0",
+    "notenv": "^2.0.3"
   },
   "devDependencies": {
     "nodemon": "^2.0.12"

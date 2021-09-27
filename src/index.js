@@ -1,3 +1,5 @@
+require('dotenv').config();
+
 const express = require('express');
 const morgan = require('morgan');
 const routes = require('./routes');
@@ -7,7 +9,7 @@ const app = express();
 
 
 mongoose.connect(
-    `mongodb://example:123456@0.0.0.0:27017/root?authSource=admin`,
+    `mongodb+srv://docker:docker@cluster0.z0egm.mongodb.net/test`,
     {
         useNewUrlParser: true,
     }
